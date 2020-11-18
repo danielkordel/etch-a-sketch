@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <html lang="en"> 
+  <head>
+    <title>Etch a Sketch project</title>
+    <meta-charset="UTF-8"/>
+    <style>
+      div.square{
+        width: 20px;
+        height: 20px;
+        background-color: lightgrey;
+        display: inline-block;
+        border: 1px grey;
+      }
+      div.square:hover {
+        background: orange;
+      }
+      div.container{
+        position: relative;
+        top: -20px;
+        left: 300px;
+        background-color: lightgrey;;
+      }
+      input#clear-button{
+        position: relative;
+        top: 20px;
+        left: 10%;
+      }
+    </style>
+  </head>
+  <body>
+    <input type=button id=clear-button value='Set up new look'></input>
+    <script>
+      let H = 940;
+      let W = 940;
+      let container = document.createElement('div');
+      container.id = 'container';
+      container.style.width = W + "px";
+      container.style.height = H + "px";      
+      container.className = 'container'
+      document.body.appendChild(container);
+      let items;      
+      
+
+      function clearGrid(){
+        var e = document.querySelector("div.container"); 
+        var child = e.lastElementChild;  
+        while (child) { 
+            e.removeChild(child); 
+            child = e.lastElementChild; 
+        } 
+        let query = parseInt(prompt('How many items per side in the new grid?'));
+        items = query;
+        createGrid(items);
+      } 
+
+      function createGrid(items){
+
+        let cellSize = (H/items) + "px";
+
+        for (y_axis=0; y_axis<items; y_axis++){
+          let row = container.appendChild(document.createElement('div'));
+          row.className = "row";
+          for (x_axis=0; x_axis<items; x_axis++){
+            let cell = container.appendChild(document.createElement('div'));
+            cell.className = "square";
+            cell.style.width = cellSize;
+            cell.style.height = cellSize;
+            // cell.innerText = "0";
+            // let randomcolor =  "#" + Math.random().toString(16).slice(2, 8);
+            // cell.style. background = randomcolor;
+
+
+            row.appendChild(cell); 
+          }
+          container.appendChild(row);
+        }
+      }
+
+      createGrid(16);
+
+      let makeNew = document.getElementById('clear-button');
+      makeNew.addEventListener('click', clearGrid);
+
+
+    </script>
+
+  </body>
+</html>
